@@ -29,24 +29,26 @@ const Item = (props) => {
 
         <div className="List__item">
             <div className="item">
-                <h1 >Bamako, ML</h1>
-                <h1 > 84°F </h1>
+                <h1 >{name},{country}</h1>
+                <h1 > {temp}°F </h1>
                 <div className="desc__pic">
-                    <h2>Sunny</h2> 
+                    <h2>{description}</h2>
                     <Avatar
-                        alt="Bamako"
-                        src="http://openweathermap.org/img/wn/01d@2x.png"
+                        alt={name}
+                        src={img}
                         sizes='200'
-                        className={img}
+                        className="my__img"
                     />
 
                 </div>
                 <div >
-                    <h2>Feels like 82°F </h2>
-                    <h2>Humidity 5%<OpacityRoundedIcon color="primary" /> </h2>
+                    <h2>Feels like {feels_like}°F </h2>
+                    <h2>Humidity {humidity}%<OpacityRoundedIcon color="primary" /> </h2>
                 </div>
                 <div >
-                    <h2>84°F<ArrowUpwardRoundedIcon color="secondary" />        77°F<ArrowDownwardRoundedIcon color="primary" /> </h2>
+                    <h2>{temp_max}°F<ArrowUpwardRoundedIcon color="secondary" />
+                        {temp_min}°F<ArrowDownwardRoundedIcon color="primary" />
+                    </h2>
 
                 </div>
             </div>

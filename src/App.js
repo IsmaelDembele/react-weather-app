@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Item from "./Components/Item";
+import Input from './Components/Input';
 
 
 const country = 'London';
@@ -78,11 +79,9 @@ const App = () => {
       <button type="" onClick={handleClick}>click</button>
       {/* <Item myCity={myCity} /> */}
       <div className="List__item">
-        <Item myCity={myCity} />
-        <Item myCity={myCity} />
-        <Item myCity={myCity} />
-        <Item myCity={myCity} />
+        {myCity.name && <Item myCity={myCity} />}
       
+
       </div>
 
 

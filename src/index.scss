@@ -18,9 +18,9 @@ body {
 .List__item {
   font-family: "Montserrat", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
     "Helvetica Neue", sans-serif;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 
   .item {
     text-align: center;
@@ -34,7 +34,7 @@ body {
     box-shadow: 0 2px 5px $shadow;
   }
 
-  img {
+  .my__img {
     // position: relative;
     // top: 2.5rem;
     width: 120px;
