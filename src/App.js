@@ -27,11 +27,11 @@ const App = () => {
 
   function handleClick() {
     fetch(url)
-      .then( response => {
+      .then(response => {
         console.log(response.status);
         return response.json();
       })
-      .then( city => {
+      .then(city => {
 
         setMyCity({
           name: city.name,
@@ -74,9 +74,18 @@ const App = () => {
            <h2>RedupArrow {myCity.temp_max} blueDownArrow {myCity.temp_min}</h2>
 
          </div> */}
-      
+
       <button type="" onClick={handleClick}>click</button>
-      <Item myCity={myCity}/>
+      {/* <Item myCity={myCity} /> */}
+      <div className="List__item">
+        <Item myCity={myCity} />
+        <Item myCity={myCity} />
+        <Item myCity={myCity} />
+        <Item myCity={myCity} />
+      
+      </div>
+
+
     </>
   )
 }
