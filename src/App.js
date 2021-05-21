@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Item from "./Components/Item";
 import Input from './Components/Input';
 
 
-const country = 'London';
+// const country = 'London';
 
-const url = `https://api.openweathermap.org/data/2.5/weather?q=${country}&units=imperial&appid=${process.env.REACT_APP_API_KEY}`;
+
+const unit = 'imperial';
 
 
 const App = () => {
-  // const [temp, setTemp] = useState(0);
-  // const [imageUrl, setImageUrl] = useState('');
+
+  const [url, setUrl] = useState('');
+  const [cityName, setCityName] = useState('');
+  const [listCity, setListCity] = useState([]);
   const [myCity, setMyCity] = useState({
     name: '',
     temp: '',
@@ -24,9 +27,25 @@ const App = () => {
   });
 
 
+  function handleChange(e, myCityName) {
+    setCityName(myCityName);
+  }
 
+  useEffect(() => {
+    setUrl(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unit}&appid=${process.env.REACT_APP_API_KEY}`);
+  }, [cityName]);
 
-  function handleClick() {
+  useEffect(() => {
+    //add the city to list city
+    setListCity(prev => [...prev, myCity]);
+
+    console.log(listCity);
+
+  }, [myCity]);
+
+  function handleClick(e) {
+    e.preventDefault();
+    console.log('---------', url);
     fetch(url)
       .then(response => {
         console.log(response.status);
@@ -40,12 +59,11 @@ const App = () => {
           img: `http://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`,
           description: city.weather[0].description,
           feels_like: city.main.feels_like,
-          humitidy: city.main.humidity,
+          humidity: city.main.humidity,
           temp_min: city.main.temp_min,
           temp_max: city.main.temp_max,
           country: city.sys.country
         });
-
         return city;
       })
       .catch(err => {
@@ -53,34 +71,16 @@ const App = () => {
       });
   }
 
-
-
-
-
-
-
   return (
     <>
-      {/*    <h1>{myCity.name},{myCity.country}</h1>
-         <h2>{myCity.temp}</h2>
-         <div>
-           <h2>{myCity.description}
-             <img src={myCity.img} alt={myCity.name} />
-           </h2>
-         </div>
-         <div>
-           <h2>Feels like {myCity.feels_like} waterDropPic {myCity.humitidy}%</h2>
-         </div>
-         <div>
-           <h2>RedupArrow {myCity.temp_max} blueDownArrow {myCity.temp_min}</h2>
 
-         </div> */}
-
-      <button type="" onClick={handleClick}>click</button>
-      {/* <Item myCity={myCity} /> */}
+      <Input button={(e) => handleClick(e)} change={(e, cityName) => handleChange(e, cityName)} />
       <div className="List__item">
-        {myCity.name && <Item myCity={myCity} />}
-      
+
+        {listCity.map(city => {
+          return city.name ? <Item myCity={city} /> : ''
+        })}
+
 
       </div>
 
@@ -89,4 +89,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
