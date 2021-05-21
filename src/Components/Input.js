@@ -4,21 +4,21 @@ import {
     makeStyles,
     createMuiTheme,
 } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { TextField } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-
+import SearchIcon from '@material-ui/icons/Search';
 
 
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexWrap: 'wrap',
+        justifyContent: 'center',
     },
     margin: {
-        margin: theme.spacing(1),
+        margin: theme.spacing(2),
     },
 }));
-
 
 const theme = createMuiTheme({
     palette: {
@@ -27,19 +27,23 @@ const theme = createMuiTheme({
 });
 
 export default function CustomizedInputs(props) {
-    const [value, setValue] = useState('');
     const classes = useStyles();
+
+    const [value, setValue] = useState('');
     const { button, change } = props;
 
     return (
         <form className={classes.root} noValidate>
             <ThemeProvider theme={theme}>
                 <TextField
+                    size='small'
+                    outline='none'
                     className={classes.margin}
                     label="Enter the name of a city"
                     variant="outlined"
                     id="mui-theme-provider-outlined-input"
                     value={value}
+                    autoComplete="off"
                     onChange={(e, value) => {
                         const myValue = e.target.value;
                         setValue(myValue);
@@ -51,9 +55,8 @@ export default function CustomizedInputs(props) {
             <button onClick={(e) => {
                 button(e);
                 setValue('');
-
             }
-            }>ClickMe</button>
+            }><SearchIcon style={{ color: green[500] }} fontSize="large"/></button>
         </form>
     );
 }

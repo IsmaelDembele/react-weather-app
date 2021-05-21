@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Item from "./Components/Item";
 import Input from './Components/Input';
-
-
-// const country = 'London';
-
+import Header from './Components/Header';
 
 const unit = 'imperial';
-
 
 const App = () => {
 
@@ -27,10 +23,6 @@ const App = () => {
   });
 
 
-  function handleChange(e, myCityName) {
-    setCityName(myCityName);
-  }
-
   useEffect(() => {
     setUrl(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unit}&appid=${process.env.REACT_APP_API_KEY}`);
   }, [cityName]);
@@ -38,17 +30,17 @@ const App = () => {
   useEffect(() => {
     //add the city to list city
     setListCity(prev => [...prev, myCity]);
-
-    console.log(listCity);
-
   }, [myCity]);
+
+  function handleChange(e, myCityName) {
+    setCityName(myCityName);
+  }
 
   function handleClick(e) {
     e.preventDefault();
-    console.log('---------', url);
     fetch(url)
       .then(response => {
-        console.log(response.status);
+        if (response.status < 200 || response > 299) throw new Error('Problem with the response');
         return response.json();
       })
       .then(city => {
@@ -73,18 +65,15 @@ const App = () => {
 
   return (
     <>
+      <Header/>
+        <Input button={(e) => handleClick(e)} change={(e, cityName) => handleChange(e, cityName)} />
+        <div className="List__item">
 
-      <Input button={(e) => handleClick(e)} change={(e, cityName) => handleChange(e, cityName)} />
-      <div className="List__item">
+          {listCity.map(city => {
+            return city.name ? <Item myCity={city} /> : '';
+          })}
 
-        {listCity.map(city => {
-          return city.name ? <Item myCity={city} /> : ''
-        })}
-
-
-      </div>
-
-
+        </div>
     </>
   )
 }

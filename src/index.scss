@@ -1,7 +1,7 @@
 $primary: #fff;
 $secondary: fff;
 $text-color: #1b1a17;
-$shadow: #000;
+$shadow: #eee;
 
 *,
 ::after,
@@ -13,6 +13,19 @@ $shadow: #000;
 
 body {
   background-color: $primary;
+}
+
+header {
+  background-color: #9fe6a0;
+  margin: auto -16px;
+  padding: 16px 32px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+  color: #fff;
+  font-family: "McLaren", cursive;
+  font-weight: 200;
 }
 
 .List__item {
@@ -35,15 +48,21 @@ body {
   }
 
   .my__img {
-    // position: relative;
-    // top: 2.5rem;
     width: 120px;
     height: 120px;
-    // display: inline-block;
   }
 
   .desc__pic {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+.MuiTextField-root {
+  box-shadow: 0 2px 5px $shadow;
 }
